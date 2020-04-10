@@ -3,7 +3,7 @@ import randomWords from "random-words";
 import "normalize.css";
 import "./styles/style.scss";
 
-const words = randomWords({ exactly: 25, maxLength: 4 });
+const words = randomWords(25);
 const activeCharIndex = 0;
 const $wordList = document.getElementById("word-list");
 
@@ -18,9 +18,14 @@ const renderWords = () => {
 
     word.split("").forEach((char) => {
       const isActive = charIndex === activeCharIndex;
+      const isTyped = charIndex < activeCharIndex;
       const $span = document.createElement("span");
+      let spanClass = "char";
 
-      $span.className = isActive ? "char active" : "char";
+      if (isTyped) spanClass += " typed";
+      if (isActive) spanClass += " active";
+
+      $span.className = spanClass;
       $span.innerText = char;
 
       charIndex++;

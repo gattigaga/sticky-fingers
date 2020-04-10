@@ -47,4 +47,8 @@
   &.space.active {
     animation: blink-space .75s infinite step-end;
   }
+
+  &.typed {
+    color: #ccc;
+  }
 }
