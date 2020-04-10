@@ -39,4 +39,10 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    contentBase: "./build",
+    compress: true,
+    port: 3000,
+  },
+  devtool: "inline-source-map",
 };
