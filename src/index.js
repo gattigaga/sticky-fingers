@@ -3,12 +3,15 @@ import randomWords from "random-words";
 import "normalize.css";
 import "./styles/style.scss";
 
-const words = randomWords(25);
-const activeCharIndex = 0;
 const $wordList = document.getElementById("word-list");
+const words = randomWords(25);
+let activeCharIndex = 0;
+let activeCharKey = null;
 
 const renderWords = () => {
   let charIndex = 0;
+
+  $wordList.innerHTML = "";
 
   words.forEach((word, index) => {
     const isLast = index === words.length - 1;
@@ -22,8 +25,14 @@ const renderWords = () => {
       const $span = document.createElement("span");
       let spanClass = "char";
 
-      if (isTyped) spanClass += " typed";
-      if (isActive) spanClass += " active";
+      if (isTyped) {
+        spanClass += " typed";
+      }
+
+      if (isActive) {
+        spanClass += " active";
+        activeCharKey = char.charCodeAt(0) - 32;
+      }
 
       $span.className = spanClass;
       $span.innerText = char;
@@ -39,9 +48,15 @@ const renderWords = () => {
       const isActive = charIndex === activeCharIndex;
       const $p = document.createElement("p");
       const $span = document.createElement("span");
+      let spanClass = "char space";
+
+      if (isActive) {
+        spanClass += " active";
+        activeCharKey = 32;
+      }
 
       $p.className = "word";
-      $span.className = isActive ? "char space active" : "char space";
+      $span.className = spanClass;
       $span.innerText = "_";
 
       charIndex++;
@@ -51,5 +66,15 @@ const renderWords = () => {
     }
   });
 };
+
+document.addEventListener("keydown", (event) => {
+  const keyCode = event.keyCode;
+  const isValid = keyCode === activeCharKey;
+
+  if (isValid) {
+    activeCharIndex++;
+    renderWords();
+  }
+});
 
 renderWords();
