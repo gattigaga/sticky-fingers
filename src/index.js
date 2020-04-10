@@ -4,10 +4,16 @@ import "normalize.css";
 import "./styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
-const words = randomWords(25);
-const wrongCharIndexes = [];
+let wrongCharIndexes = [];
+let words = randomWords(20);
 let activeCharIndex = 0;
 let activeCharKey = null;
+
+const getTotalChars = (words) => {
+  return words.reduce((acc, word) => {
+    return acc + word.length;
+  }, 0);
+};
 
 const renderWords = () => {
   let charIndex = 0;
@@ -81,9 +87,18 @@ const renderWords = () => {
 document.addEventListener("keydown", (event) => {
   const keyCode = event.keyCode;
   const isValid = keyCode === activeCharKey;
+  const totalChars = getTotalChars(words) + words.length - 1;
+  const isFinish = activeCharIndex === totalChars - 1;
 
   if (isValid) {
     activeCharIndex++;
+
+    if (isFinish) {
+      wrongCharIndexes = [];
+      words = randomWords(20);
+      activeCharIndex = 0;
+    }
+
     renderWords();
   } else {
     const isNoted = wrongCharIndexes.includes(activeCharIndex);
