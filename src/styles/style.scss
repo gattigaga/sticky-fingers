@@ -1,5 +1,50 @@
-$font-color: red;
+@keyframes blink-char {
+  0% {
+    background: #333;
+    color: white;
+  }
 
-body {
-  background-color: $font-color;
+  50% {
+    background: rgba(0, 0, 0, 0);
+    color: #333;
+  }
+}
+
+@keyframes blink-space {
+  0% {
+    background: #333;
+    color: white;
+  }
+
+  50% {
+    background: rgba(0, 0, 0, 0);
+    color: #ccc;
+  }
+}
+
+#word-list {
+  width: 800px;
+  margin: auto;
+}
+
+.word {
+  font-family: Helvetica;
+  font-size: 24px;
+  margin: 0px;
+  float: left;
+  line-height: 1.5em;
+}
+
+.char {
+  &.active {
+    animation: blink-char .75s infinite step-end;
+  }
+
+  &.space {
+    color: #ccc;
+  }
+
+  &.space.active {
+    animation: blink-space .75s infinite step-end;
+  }
 }
