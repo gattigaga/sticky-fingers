@@ -5,6 +5,7 @@ import "./styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
 const words = randomWords(25);
+const wrongCharIndexes = [];
 let activeCharIndex = 0;
 let activeCharKey = null;
 
@@ -22,11 +23,16 @@ const renderWords = () => {
     word.split("").forEach((char) => {
       const isActive = charIndex === activeCharIndex;
       const isTyped = charIndex < activeCharIndex;
+      const isError = wrongCharIndexes.includes(charIndex);
       const $span = document.createElement("span");
       let spanClass = "char";
 
       if (isTyped) {
         spanClass += " typed";
+      }
+
+      if (isError) {
+        spanClass += " error";
       }
 
       if (isActive) {
@@ -46,9 +52,14 @@ const renderWords = () => {
 
     if (!isLast) {
       const isActive = charIndex === activeCharIndex;
+      const isError = wrongCharIndexes.includes(charIndex);
       const $p = document.createElement("p");
       const $span = document.createElement("span");
       let spanClass = "char space";
+
+      if (isError) {
+        spanClass += " error";
+      }
 
       if (isActive) {
         spanClass += " active";
@@ -74,6 +85,12 @@ document.addEventListener("keydown", (event) => {
   if (isValid) {
     activeCharIndex++;
     renderWords();
+  } else {
+    const isNoted = wrongCharIndexes.includes(activeCharIndex);
+
+    if (!isNoted) {
+      wrongCharIndexes.push(activeCharIndex);
+    }
   }
 });
 
