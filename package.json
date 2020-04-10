@@ -1,0 +1,25 @@
+{
+  "name": "sticky-fingers",
+  "version": "1.0.0",
+  "description": "Sticky Fingers is app for touch typing drill",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gattigaga/sticky-fingers.git"
+  },
+  "author": "Gattigaga Hayyuta Dewa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gattigaga/sticky-fingers/issues"
+  },
+  "homepage": "https://github.com/gattigaga/sticky-fingers#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "2.0.4"
+  }
+}
