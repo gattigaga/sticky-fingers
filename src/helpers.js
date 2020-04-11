@@ -17,6 +17,22 @@ export const getActiveCharIndex = (words) => {
   )(words);
 };
 
+export const setActiveCharIndex = (index, words) => {
+  let charIndex = 0;
+
+  return words.map((word) => {
+    const chars = word.chars.map((char) => {
+      const isActive = index === charIndex;
+
+      charIndex++;
+
+      return { ...char, isActive };
+    });
+
+    return { ...word, chars };
+  });
+};
+
 export const generateWords = (totalWords, offset = 0) => {
   const totalSpaces = totalWords - 1;
   const totalAll = totalSpaces + totalWords;
@@ -33,7 +49,7 @@ export const generateWords = (totalWords, offset = 0) => {
       wordIndex++;
     }
 
-    const chars = word.split("").map((char, charIndex) => {
+    const chars = word.split("").map((char) => {
       const code = isSpace ? 32 : char.charCodeAt(0) - 32;
       const isActive = offset === globalCharIndex;
 
