@@ -1,4 +1,5 @@
 import randomWords from "random-words";
+import { compose, map, flatten, find } from "lodash/fp";
 
 export const getTotalChars = (words) => {
   const totalChars = words.reduce((acc, word) => {
@@ -46,4 +47,13 @@ export const generateWords = (totalWords) => {
   });
 
   return results;
+};
+
+export const isActiveCharMatch = (keyCode, words) => {
+  return compose(
+    (char) => keyCode === char.code,
+    find((char) => char.isActive),
+    flatten,
+    map((word) => word.chars)
+  )(words);
 };
