@@ -34,6 +34,22 @@ export const setActiveCharIndex = (index, words) => {
   });
 };
 
+export const setErrorCharIndex = (index, words) => {
+  let charIndex = 0;
+
+  return words.map((word) => {
+    const chars = word.chars.map((char) => {
+      const isError = index === charIndex || char.isError;
+
+      charIndex++;
+
+      return { ...char, isError };
+    });
+
+    return { ...word, chars };
+  });
+};
+
 export const generateWords = (totalWords, offset = 0) => {
   const totalSpaces = totalWords - 1;
   const totalAll = totalSpaces + totalWords;
