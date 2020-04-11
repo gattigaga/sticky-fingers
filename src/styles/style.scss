@@ -22,14 +22,52 @@
   }
 }
 
-#word-list {
+#root {
   width: 800px;
   margin: auto;
+  padding-top: 96px;
+}
+
+#typing-data {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.stat-col {
+  width: 128px;
+  margin-right: 32px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 48px;
+  margin-bottom: 16px;
+  width: 108px;
+}
+
+.label {
+  font-family: Helvetica;
+  font-size: 14px;
+  color: #aaa;
+  margin: 0px;
+  margin-top: auto;
+}
+
+.value {
+  font-family: Helvetica;
+  font-size: 24px;
+  color: #333;
+  margin: 0px;
+
+  &.small {
+    font-size: 14px;
+  }
 }
 
 .word {
   font-family: Helvetica;
-  font-size: 24px;
+  font-size: 32px;
   margin: 0px;
   float: left;
   line-height: 1.5em;
