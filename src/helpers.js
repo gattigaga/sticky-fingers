@@ -122,7 +122,19 @@ export const isActiveCharLast = (words) => {
 export const isActiveCharAsFirstInWord = (words) => {
   return !!words.find((word) => {
     return word.chars.find((char, index) => {
-      return char.isActive && index === 0;
+      const isFirst = index === 0;
+
+      return char.isActive && isFirst;
+    });
+  });
+};
+
+export const isActiveCharAsLastInWord = (words) => {
+  return !!words.find((word) => {
+    return word.chars.find((char, index) => {
+      const isLast = index === word.chars.length - 1;
+
+      return char.isActive && isLast;
     });
   });
 };
