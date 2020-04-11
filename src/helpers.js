@@ -1,9 +1,18 @@
 import randomWords from "random-words";
-import { compose, map, flatten, find, findIndex } from "lodash/fp";
+import { compose, map, flatten, find, findIndex, filter } from "lodash/fp";
 
 export const getTotalChars = (words) => {
   return compose(
     (chars) => chars.length,
+    flatten,
+    map((word) => word.chars)
+  )(words);
+};
+
+export const getTotalErrors = (words) => {
+  return compose(
+    (chars) => chars.length,
+    filter((char) => char.isError),
     flatten,
     map((word) => word.chars)
   )(words);
