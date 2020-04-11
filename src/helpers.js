@@ -1,5 +1,5 @@
 import randomWords from "random-words";
-import { compose, map, flatten, find } from "lodash/fp";
+import { compose, map, flatten, find, findIndex } from "lodash/fp";
 
 export const getTotalChars = (words) => {
   return compose(
@@ -9,7 +9,14 @@ export const getTotalChars = (words) => {
   )(words);
 };
 
-export const generateWords = (totalWords) => {
+export const getActiveCharIndex = (words) => {
+  return compose(
+    findIndex((char) => char.isActive),
+    flatten,
+    map((word) => word.chars)
+  )(words);
+};
+
   const totalSpaces = totalWords - 1;
   const totalAll = totalSpaces + totalWords;
   const words = randomWords(totalWords);
