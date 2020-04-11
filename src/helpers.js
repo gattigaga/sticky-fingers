@@ -23,10 +23,11 @@ export const setActiveCharIndex = (index, words) => {
   return words.map((word) => {
     const chars = word.chars.map((char) => {
       const isActive = index === charIndex;
+      const isTyped = charIndex < index;
 
       charIndex++;
 
-      return { ...char, isActive };
+      return { ...char, isTyped, isActive };
     });
 
     return { ...word, chars };
