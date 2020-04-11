@@ -1,107 +1,73 @@
-import randomWords from "random-words";
-
-import { getTotalChars } from "./helpers";
+import {
+  generateWords,
+  isActiveCharMatch,
+  isActiveCharLast,
+  getActiveCharIndex,
+  setActiveCharIndex,
+  setErrorCharIndex,
+} from "./helpers";
 
 import "normalize.css";
 import "./styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
-let wrongCharIndexes = [];
-let words = randomWords(20);
-let activeCharIndex = 0;
-let activeCharKey = null;
+let words = generateWords(20);
 
 const renderWords = () => {
-  let charIndex = 0;
-
   $wordList.innerHTML = "";
 
-  words.forEach((word, index) => {
-    const isLast = index === words.length - 1;
+  words.forEach((word) => {
     const $p = document.createElement("p");
 
     $p.className = "word";
 
-    word.split("").forEach((char) => {
-      const isActive = charIndex === activeCharIndex;
-      const isTyped = charIndex < activeCharIndex;
-      const isError = wrongCharIndexes.includes(charIndex);
+    word.chars.forEach((char) => {
       const $span = document.createElement("span");
       let spanClass = "char";
 
-      if (isTyped) {
+      if (word.isSpace) {
+        spanClass += " space";
+      }
+
+      if (char.isTyped) {
         spanClass += " typed";
       }
 
-      if (isError) {
+      if (char.isError) {
         spanClass += " error";
       }
 
-      if (isActive) {
+      if (char.isActive) {
         spanClass += " active";
-        activeCharKey = char.charCodeAt(0) - 32;
       }
 
       $span.className = spanClass;
-      $span.innerText = char;
-
-      charIndex++;
+      $span.innerText = char.text;
 
       $p.appendChild($span);
     });
 
     $wordList.appendChild($p);
-
-    if (!isLast) {
-      const isActive = charIndex === activeCharIndex;
-      const isError = wrongCharIndexes.includes(charIndex);
-      const $p = document.createElement("p");
-      const $span = document.createElement("span");
-      let spanClass = "char space";
-
-      if (isError) {
-        spanClass += " error";
-      }
-
-      if (isActive) {
-        spanClass += " active";
-        activeCharKey = 32;
-      }
-
-      $p.className = "word";
-      $span.className = spanClass;
-      $span.innerText = "_";
-
-      charIndex++;
-
-      $p.appendChild($span);
-      $wordList.appendChild($p);
-    }
   });
 };
 
 document.addEventListener("keydown", (event) => {
   const keyCode = event.keyCode;
-  const isValid = keyCode === activeCharKey;
-  const totalChars = getTotalChars(words);
-  const isFinish = activeCharIndex === totalChars - 1;
+  const isMatch = isActiveCharMatch(keyCode, words);
+  const isFinish = isActiveCharLast(words);
+  const activeCharIndex = getActiveCharIndex(words);
+  const offset = isFinish ? 0 : activeCharIndex + 1;
 
-  if (isValid) {
-    activeCharIndex++;
-
+  if (isMatch) {
     if (isFinish) {
-      wrongCharIndexes = [];
-      words = randomWords(20);
-      activeCharIndex = 0;
+      words = generateWords(20);
+    } else {
+      words = setActiveCharIndex(offset, words);
     }
 
     renderWords();
   } else {
-    const isNoted = wrongCharIndexes.includes(activeCharIndex);
-
-    if (!isNoted) {
-      wrongCharIndexes.push(activeCharIndex);
-    }
+    words = setErrorCharIndex(activeCharIndex, words);
   }
 });
 
