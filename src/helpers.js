@@ -57,3 +57,20 @@ export const isActiveCharMatch = (keyCode, words) => {
     map((word) => word.chars)
   )(words);
 };
+
+export const isActiveCharLast = (words) => {
+  const totalChars = getTotalChars(words);
+  const convertedFind = find.convert({ cap: false });
+
+  return compose(
+    (char) => !!char,
+    convertedFind((char, index) => {
+      const isActive = char.isActive;
+      const isLast = index === totalChars - 1;
+
+      return isActive && isLast;
+    }),
+    flatten,
+    map((word) => word.chars)
+  )(words);
+};
