@@ -2,11 +2,11 @@ import randomWords from "random-words";
 import { compose, map, flatten, find } from "lodash/fp";
 
 export const getTotalChars = (words) => {
-  const totalChars = words.reduce((acc, word) => {
-    return acc + word.length;
-  }, 0);
-
-  return totalChars + words.length - 1;
+  return compose(
+    (chars) => chars.length,
+    flatten,
+    map((word) => word.chars)
+  )(words);
 };
 
 export const generateWords = (totalWords) => {
