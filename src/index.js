@@ -1,5 +1,7 @@
 import randomWords from "random-words";
 
+import { getTotalChars } from "./helpers";
+
 import "normalize.css";
 import "./styles/style.scss";
 
@@ -8,12 +10,6 @@ let wrongCharIndexes = [];
 let words = randomWords(20);
 let activeCharIndex = 0;
 let activeCharKey = null;
-
-const getTotalChars = (words) => {
-  return words.reduce((acc, word) => {
-    return acc + word.length;
-  }, 0);
-};
 
 const renderWords = () => {
   let charIndex = 0;
@@ -87,7 +83,7 @@ const renderWords = () => {
 document.addEventListener("keydown", (event) => {
   const keyCode = event.keyCode;
   const isValid = keyCode === activeCharKey;
-  const totalChars = getTotalChars(words) + words.length - 1;
+  const totalChars = getTotalChars(words);
   const isFinish = activeCharIndex === totalChars - 1;
 
   if (isValid) {
