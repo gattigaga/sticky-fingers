@@ -118,3 +118,11 @@ export const isActiveCharLast = (words) => {
     map((word) => word.chars)
   )(words);
 };
+
+export const isActiveCharAsFirstInWord = (words) => {
+  return !!words.find((word) => {
+    return word.chars.find((char, index) => {
+      return char.isActive && index === 0;
+    });
+  });
+};
