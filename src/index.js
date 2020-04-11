@@ -5,13 +5,19 @@ import {
   getActiveCharIndex,
   setActiveCharIndex,
   setErrorCharIndex,
+  getTotalErrors,
 } from "./helpers";
 
 import "normalize.css";
 import "./styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
+const $valueError = document.getElementById("value-error");
 let words = generateWords(20);
+
+const renderStatistics = () => {
+  $valueError.innerText = getTotalErrors(words);
+};
 
 const renderWords = () => {
   $wordList.innerHTML = "";
@@ -60,15 +66,18 @@ document.addEventListener("keydown", (event) => {
 
   if (isMatch) {
     if (isFinish) {
+      renderStatistics();
+
       words = generateWords(20);
     } else {
       words = setActiveCharIndex(offset, words);
     }
-
-    renderWords();
   } else {
     words = setErrorCharIndex(activeCharIndex, words);
   }
+
+  renderWords();
 });
 
+renderStatistics();
 renderWords();
