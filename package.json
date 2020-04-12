@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.15",
-    "normalize.css": "^8.0.1",
     "random-words": "^1.1.1"
   }
 }

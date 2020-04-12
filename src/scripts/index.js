@@ -9,7 +9,6 @@ import {
   getSpeed,
 } from "./helpers";
 
-import "normalize.css";
 import "../styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
