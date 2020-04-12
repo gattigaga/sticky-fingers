@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  mode: "development",
   entry: "./src/scripts/index.js",
   output: {
     filename: "app.js",
@@ -45,10 +44,4 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: "./src/index.html" }),
   ],
-  devServer: {
-    contentBase: "./build",
-    compress: true,
-    port: 3000,
-  },
-  devtool: "inline-source-map",
 };
