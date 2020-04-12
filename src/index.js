@@ -6,17 +6,26 @@ import {
   setActiveCharIndex,
   setErrorCharIndex,
   getTotalErrors,
+  getSpeed,
 } from "./helpers";
 
 import "normalize.css";
 import "./styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
+const $valueSpeed = document.getElementById("value-speed");
 const $valueError = document.getElementById("value-error");
-let words = generateWords(20);
+const totalWords = 20;
+let words = generateWords(totalWords);
+let startTime = 0;
+let finishTime = 0;
 
 const renderStatistics = () => {
+  const elapsedTime = finishTime - startTime;
+  const speed = elapsedTime ? getSpeed(elapsedTime, words) : 0;
+
   $valueError.innerText = getTotalErrors(words);
+  $valueSpeed.innerText = speed;
 };
 
 const renderWords = () => {
@@ -59,17 +68,24 @@ const renderWords = () => {
 
 document.addEventListener("keydown", (event) => {
   const keyCode = event.keyCode;
+  const activeCharIndex = getActiveCharIndex(words);
   const isMatch = isActiveCharMatch(keyCode, words);
   const isFinish = isActiveCharLast(words);
-  const activeCharIndex = getActiveCharIndex(words);
+  const isStart = activeCharIndex === 1;
   const offset = isFinish ? 0 : activeCharIndex + 1;
 
   if (isMatch) {
     if (isFinish) {
+      finishTime = Date.now();
+
       renderStatistics();
 
-      words = generateWords(20);
+      words = generateWords(totalWords);
     } else {
+      if (isStart) {
+        startTime = Date.now();
+      }
+
       words = setActiveCharIndex(offset, words);
     }
   } else {
