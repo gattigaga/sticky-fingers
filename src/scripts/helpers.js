@@ -135,23 +135,3 @@ export const isActiveCharLast = (words) => {
     map((word) => word.chars)
   )(words);
 };
-
-export const isActiveCharAsFirstInWord = (words) => {
-  return !!words.find((word) => {
-    return word.chars.find((char, index) => {
-      const isFirst = index === 0;
-
-      return char.isActive && isFirst;
-    });
-  });
-};
-
-export const isActiveCharAsLastInWord = (words) => {
-  return !!words.find((word) => {
-    return word.chars.find((char, index) => {
-      const isLast = index === word.chars.length - 1;
-
-      return char.isActive && isLast;
-    });
-  });
-};
