@@ -18,6 +18,14 @@ export const getTotalErrors = (words) => {
   )(words);
 };
 
+export const getSpeed = (elapsedTimeInMs, words) => {
+  const totalChars = getTotalChars(words);
+  const elapsedTimeInMinutes = elapsedTimeInMs / 60000;
+  const result = totalChars / 5 / elapsedTimeInMinutes;
+
+  return Number(result.toFixed(1));
+};
+
 export const getActiveCharIndex = (words) => {
   return compose(
     findIndex((char) => char.isActive),
