@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/gattigaga/sticky-fingers/issues"
   },
-  "homepage": "https://github.com/gattigaga/sticky-fingers#readme",
+  "homepage": "https://gattigaga.github.io/sticky-fingers",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
