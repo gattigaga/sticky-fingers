@@ -10,7 +10,7 @@ import {
 } from "./helpers";
 
 import "normalize.css";
-import "./styles/style.scss";
+import "../styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
 const $valueSpeed = document.getElementById("value-speed");
