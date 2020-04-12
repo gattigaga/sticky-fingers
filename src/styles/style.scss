@@ -22,10 +22,29 @@
   }
 }
 
+#main-header {
+  margin-bottom: 64px;
+}
+
+#title {
+  font-family: Helvetica;
+  font-size: 32px;
+  color: #333;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+
+#about {
+  font-family: Helvetica;
+  font-size: 14px;
+  color: #aaa;
+  margin: 0px;
+}
+
 #root {
   width: 800px;
   margin: auto;
-  padding-top: 96px;
+  padding-top: 64px;
 }
 
 #typing-data {
