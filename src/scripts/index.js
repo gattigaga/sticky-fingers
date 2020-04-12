@@ -13,6 +13,7 @@ import "normalize.css";
 import "../styles/style.scss";
 
 const $wordList = document.getElementById("word-list");
+const $notice = document.getElementById("notice");
 const $valueSpeed = document.getElementById("value-speed");
 const $valueError = document.getElementById("value-error");
 const $valueErrorGain = document.getElementById("value-error-gain");
@@ -68,7 +69,11 @@ const renderStatistics = () => {
 };
 
 const renderWords = () => {
+  const isActive = document.activeElement === $wordList;
+
   $wordList.innerHTML = "";
+  $wordList.className = isActive ? "" : "disabled";
+  $notice.className = isActive ? "hidden" : "";
 
   words.forEach((word) => {
     const $p = document.createElement("p");
@@ -105,7 +110,10 @@ const renderWords = () => {
   });
 };
 
-document.addEventListener("keydown", (event) => {
+$wordList.addEventListener("click", renderWords);
+$wordList.addEventListener("blur", renderWords);
+
+$wordList.addEventListener("keydown", (event) => {
   const keyCode = event.keyCode;
   const activeCharIndex = getActiveCharIndex(words);
   const isMatch = isActiveCharMatch(keyCode, words);
@@ -134,5 +142,6 @@ document.addEventListener("keydown", (event) => {
   renderWords();
 });
 
+$wordList.focus();
 renderStatistics();
 renderWords();

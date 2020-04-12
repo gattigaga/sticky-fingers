@@ -33,6 +33,14 @@
   margin-bottom: 32px;
 }
 
+#word-list {
+  outline: none;
+
+  &.disabled {
+    opacity: 0.2;
+  }
+}
+
 .stat-col {
   width: 128px;
   margin-right: 32px;
@@ -101,4 +109,15 @@
   &.error {
     color: #c0392b;
   }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#notice {
+  font-family: Helvetica;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
 }
