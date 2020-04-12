@@ -15,17 +15,30 @@ import "./styles/style.scss";
 const $wordList = document.getElementById("word-list");
 const $valueSpeed = document.getElementById("value-speed");
 const $valueError = document.getElementById("value-error");
+const $valueErrorGain = document.getElementById("value-error-gain");
+const $valueSpeedGain = document.getElementById("value-speed-gain");
+
 const totalWords = 20;
 let words = generateWords(totalWords);
 let startTime = 0;
 let finishTime = 0;
+let prevTotalErrors = 0;
+let prevSpeed = 0;
 
 const renderStatistics = () => {
   const elapsedTime = finishTime - startTime;
   const speed = elapsedTime ? getSpeed(elapsedTime, words) : 0;
+  const totalErrors = getTotalErrors(words);
+  const errorGain = totalErrors - prevTotalErrors;
+  const speedGain = Number((speed - prevSpeed).toFixed(1));
 
-  $valueError.innerText = getTotalErrors(words);
+  prevTotalErrors = totalErrors;
+  prevSpeed = speed;
+
+  $valueError.innerText = totalErrors;
   $valueSpeed.innerText = speed;
+  $valueErrorGain.innerText = errorGain;
+  $valueSpeedGain.innerText = speedGain;
 };
 
 const renderWords = () => {
@@ -71,8 +84,12 @@ document.addEventListener("keydown", (event) => {
   const activeCharIndex = getActiveCharIndex(words);
   const isMatch = isActiveCharMatch(keyCode, words);
   const isFinish = isActiveCharLast(words);
-  const isStart = activeCharIndex === 1;
+  const isStart = activeCharIndex === 0;
   const offset = isFinish ? 0 : activeCharIndex + 1;
+
+  if (isStart) {
+    startTime = Date.now();
+  }
 
   if (isMatch) {
     if (isFinish) {
@@ -82,10 +99,6 @@ document.addEventListener("keydown", (event) => {
 
       words = generateWords(totalWords);
     } else {
-      if (isStart) {
-        startTime = Date.now();
-      }
-
       words = setActiveCharIndex(offset, words);
     }
   } else {
