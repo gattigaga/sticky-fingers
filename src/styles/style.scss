@@ -63,6 +63,14 @@
   &.small {
     font-size: 14px;
   }
+
+  &.positive {
+    color: #27ae60;
+  }
+
+  &.negative {
+    color: #c0392b;
+  }
 }
 
 .word {

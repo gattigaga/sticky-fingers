@@ -31,14 +31,40 @@ const renderStatistics = () => {
   const totalErrors = getTotalErrors(words);
   const errorGain = totalErrors - prevTotalErrors;
   const speedGain = Number((speed - prevSpeed).toFixed(1));
+  let errorGainLabel = errorGain;
+  let speedGainLabel = speedGain;
+  let errorGainClass = "value small";
+  let speedGainClass = "value small";
+
+  if (errorGain > 0) {
+    errorGainLabel = `+${errorGain}`;
+    errorGainClass += " negative";
+  }
+
+  if (errorGain < 0) {
+    errorGainLabel = errorGain;
+    errorGainClass += " positive";
+  }
+
+  if (speedGain > 0) {
+    speedGainLabel = `+${speedGain}`;
+    speedGainClass += " positive";
+  }
+
+  if (speedGain < 0) {
+    speedGainLabel = speedGain;
+    speedGainClass += " negative";
+  }
 
   prevTotalErrors = totalErrors;
   prevSpeed = speed;
 
   $valueError.innerText = totalErrors;
   $valueSpeed.innerText = speed;
-  $valueErrorGain.innerText = errorGain;
-  $valueSpeedGain.innerText = speedGain;
+  $valueErrorGain.innerText = errorGainLabel;
+  $valueSpeedGain.innerText = speedGainLabel;
+  $valueErrorGain.className = errorGainClass;
+  $valueSpeedGain.className = speedGainClass;
 };
 
 const renderWords = () => {
