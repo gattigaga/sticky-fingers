@@ -32,7 +32,9 @@
     "eslint-plugin-prettier": "^3.1.2",
     "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.2.0",
+    "husky": "^4.3.8",
     "jest": "^25.3.0",
+    "lint-staged": "^10.5.3",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
     "prettier": "2.0.4",
@@ -45,5 +47,13 @@
   "dependencies": {
     "lodash": "^4.17.15",
     "random-words": "^1.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{html,scss,js}": "prettier --write"
   }
 }
