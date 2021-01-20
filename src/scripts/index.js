@@ -25,6 +25,9 @@ let finishTime = 0;
 let prevTotalErrors = 0;
 let prevSpeed = 0;
 
+/**
+ * Render the statistics on the screen.
+ */
 const renderStatistics = () => {
   const elapsedTime = finishTime - startTime;
   const speed = elapsedTime ? getSpeed(elapsedTime, words) : 0;
@@ -60,16 +63,22 @@ const renderStatistics = () => {
   prevSpeed = speed;
 
   $valueError.innerText = totalErrors;
-  $valueSpeed.innerText = speed;
   $valueErrorGain.innerText = errorGainLabel;
-  $valueSpeedGain.innerText = speedGainLabel;
   $valueErrorGain.className = errorGainClass;
+
+  $valueSpeed.innerText = speed;
+  $valueSpeedGain.innerText = speedGainLabel;
   $valueSpeedGain.className = speedGainClass;
 };
 
+/**
+ * Render the words on the screen.
+ */
 const renderWords = () => {
+  // Check if words section are focused
   const isActive = document.activeElement === $wordList;
 
+  // Make words section empty
   $wordList.innerHTML = "";
   $wordList.className = isActive ? "" : "disabled";
   $notice.className = isActive ? "hidden" : "";
